@@ -1,23 +1,25 @@
 'use strict';
 
-const defaultb = {
+const DefaultBParams = {
+  /** @type {string} */
   query: undefined,
-  otherB: undefined,
+  /** @type {B} */
+  b: undefined,
 };
 
 class B {
   /**
    * @param {Object} options options for the B class
    * @param {string} options.query a string containing a query for B to find
-   * @param {B} options.otherB another instance of B to copy
+   * @param {B} options.b another instance of B to copy
    */
-  constructor({ query, otherB }) {
+  constructor({ query, b }) {
     if (query) {
       this.element = document.querySelector(query);
       return;
     }
-    if (otherB) {
-      this.element = otherB.element;
+    if (b) {
+      this.element = b.element;
     }
   }
 
@@ -86,7 +88,7 @@ class B {
  */
 export default function b(arg) {
   if (typeof arg === 'function') {
-    return new B({ ...defaultb, otherB: /** @type {B} */ (arg) });
+    return new B({ ...DefaultBParams, b: /** @type {B} */ (arg) });
   }
-  return new B({ ...defaultb, query: /** @type {string} */ (arg) });
+  return new B({ ...DefaultBParams, query: /** @type {string} */ (arg) });
 }
