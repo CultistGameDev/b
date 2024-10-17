@@ -2,6 +2,22 @@
 
 import b from '../src/b.mjs';
 
+test('Test copying B instance', () => {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.innerHTML = `
+    <div>
+      <span class="test-span">Hello</span>
+      <span class="test-span">Hello</span>
+      <span class="test-span">Hello</span>
+    </div>
+    `;
+
+    const span = b('test-span');
+
+    expect(span.getHtml()).toBe(b(span).getHtml());
+  });
+});
+
 test('Test retrieving inner html content.', () => {
   document.addEventListener('DOMContentLoaded', () => {
     document.body.innerHTML = `
