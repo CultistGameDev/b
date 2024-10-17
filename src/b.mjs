@@ -15,48 +15,53 @@ class B {
    */
   constructor({ query, b }) {
     if (query) {
-      this.element = document.querySelector(query);
+      this.elements = document.querySelectorAll(query);
       return;
     }
     if (b) {
-      this.element = b.element;
+      this.elements = b.elements;
     }
   }
 
   /**
-   * Get the HTML from with the element contained in B.
+   * Get the HTML from with the element contained in B at index i.
+   * @param {number} [i=0] the index of the element to get HTML from
+   * @returns {string}
    */
-  getHtml() {
-    return this.element.innerHTML;
+  getHtml(i = 0) {
+    return this.elements[0].innerHTML;
   }
 
   /**
-   * Replace the HTML with the element contained in b with value.
+   * Replace the HTML with the elements contained in b with value.
    * @param {string} value the HTML to be placed inside.
+   * @param {number} [i=0] the index of the element to set HTML for
    * @returns {B} the same instance
    */
-  setHtml(value) {
-    this.element.innerHTML = value;
+  setHtml(value, i = 0) {
+    this.elements[i].innerHTML = value;
     return this;
   }
 
   /**
-   * Get an attribute attached to element
+   * Get an attribute attached to elements
    * @param {string} name the attribute name.
+   * @param {number} [i=0] the index of the element to get attribute for.
    * @returns {string|null}
    */
-  getAttr(name) {
-    return this.element.getAttribute(name);
+  getAttr(name, i = 0) {
+    return this.elements[i].getAttribute(name);
   }
 
   /**
-   * Sets an attribute to the element selected.
+   * Sets an attribute to the elements selected.
    * @param {string} name attribute name
    * @param {string} value attribute value
+   * @param {number} [i=0] the index of the element to set attribute for
    * @returns {B}
    */
-  setAttr(name, value) {
-    this.element.setAttribute(name, value);
+  setAttr(name, value, i = 0) {
+    this.elements[i].setAttribute(name, value);
     return this;
   }
 
@@ -70,14 +75,25 @@ class B {
    */
 
   /**
-   * Iterates over ever all elements currently selected
+   * Iterates over ever all elementss currently selected
    * @param {forEachCallback} fn callback for iteration.
    */
   forEach(fn) {
-    if (Array.isArray(this.element)) {
-      this.element.forEach(fn, this);
+    if (Array.isArray(this.elements)) {
+      this.elements.forEach(fn, this);
     }
-    fn(this.element, 0, [this.element]);
+  }
+
+  /**
+   * Add a B instance to the current elements
+   * @param {B} obj elements to add
+   * @param {number} [i1=0] the index of the element to be written to
+   * @param {number} [i2=0] the index of the element to be copied from
+   * @returns {B} this instance
+   */
+  append(obj, i1 = 0, i2 = 0) {
+    this.elements[i1].innerHTML += obj.elements[i2].outerHTML;
+    return this;
   }
 }
 
