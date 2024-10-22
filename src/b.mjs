@@ -1,9 +1,11 @@
 'use strict';
 
+/**
+ * Default Parameters for the {@link b b()} function.
+ * @type {{ query: string; b: B; }}
+ */
 const DefaultBParams = {
-  /** @type {string} */
   query: undefined,
-  /** @type {B} */
   b: undefined,
 };
 
